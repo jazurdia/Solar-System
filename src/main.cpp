@@ -283,13 +283,13 @@ int main(int argc, char** argv) {
                         camera = moveRight(camera);
                         break;
                     case SDLK_LEFT:
-                        rotationSpeedPlanets -= increment;
-                        orbitSpeedPlanets -= increment;
+                        rsPlanets -= increment;
+                        osPlanets -= increment;
 
                         break;
                     case SDLK_RIGHT:
-                        rotationSpeedPlanets += increment;
-                        orbitSpeedPlanets += increment;
+                        rsPlanets += increment;
+                        osPlanets += increment;
 
                         break;
                     case SDLK_p:
@@ -300,36 +300,36 @@ int main(int argc, char** argv) {
         }
 
 
-        rotationAngleSun += rotationSpeedPlanets * 0.2f;
-        rotationAngleEarth += rotationSpeedPlanets * 1.0f;
-        rotationAngleMars += rotationSpeedPlanets * 0.6f;
-        rotationAngleJupiter += rotationSpeedPlanets * 0.4f;
-        rotationAngleUranus += rotationSpeedPlanets * 0.3f;
-        rotationAngleNeptune += rotationSpeedPlanets * 0.2f;
+        raSun += rsPlanets * 0.2f;
+        raEarth += rsPlanets * 1.0f;
+        raMars += rsPlanets * 0.6f;
+        raJupiter += rsPlanets * 0.4f;
+        raUranus += rsPlanets * 0.3f;
+        raNeptune += rsPlanets * 0.2f;
 
         if(orbiting) {
-            earthOrbitAngle += 1.0f * orbitSpeedPlanets;
-            marsOrbitAngle += 0.8f * orbitSpeedPlanets;
-            jupiterOrbitAngle += 0.6f * orbitSpeedPlanets;
-            uranusOrbitAngle += 0.4f * orbitSpeedPlanets;
-            neptuneOrbitAngle += 0.3f * orbitSpeedPlanets;
+            oaEarth += 1.0f * osPlanets;
+            orMars += 0.8f * osPlanets;
+            oaJupiter += 0.6f * osPlanets;
+            oaUranus += 0.4f * osPlanets;
+            oaNeptune += 0.3f * osPlanets;
         }
 
         shipUniform.model = createShipModelMatrix(shipTranslationVector, shipScaleFactor);
         shipModel.modelMatrix = shipUniform.model;
 
 
-        sunUniform.model = createModelMatrix(sunTranslationVector, sunScaleFactor, sunRotationAxis, rotationAngleSun);
+        sunUniform.model = createModelMatrix(sunTranslationVector, sunScaleFactor, sunRotationAxis, raSun);
         sunModel.modelMatrix = sunUniform.model;
 
         models.push_back(sunModel);
 
         glm::vec3 earthTranslationVector(
-                earthDistanceToSun * cos(glm::radians(earthOrbitAngle)),
+                earthDistanceToSun * cos(glm::radians(oaEarth)),
                 0.0f,
-                earthDistanceToSun * sin(glm::radians(earthOrbitAngle))
+                earthDistanceToSun * sin(glm::radians(oaEarth))
         );
-        earthUniform.model = createModelMatrix(earthTranslationVector, earthScaleFactor, earthRotationAxis, rotationAngleEarth);
+        earthUniform.model = createModelMatrix(earthTranslationVector, earthScaleFactor, earthRotationAxis, raEarth);
         earthModel.modelMatrix = earthUniform.model;
 
         models.push_back(earthModel);
@@ -337,42 +337,42 @@ int main(int argc, char** argv) {
         // move the planet around the sun on the x and y axis
 
         glm::vec3 marsTranslationVector(
-                marsDistanceToSun * cos(glm::radians(marsOrbitAngle)),
+                marsDistanceToSun * cos(glm::radians(orMars)),
                 0.0f,
-                marsDistanceToSun * sin(glm::radians(marsOrbitAngle))
+                marsDistanceToSun * sin(glm::radians(orMars))
         );
-        marsUniform.model = createModelMatrix(marsTranslationVector, marsScaleFactor, marsRotationAxis, rotationAngleMars);
+        marsUniform.model = createModelMatrix(marsTranslationVector, marsScaleFactor, marsRotationAxis, raMars);
         marsModel.modelMatrix = marsUniform.model;
 
         models.push_back(marsModel);
 
 
         glm::vec3 jupiterTranslationVector(
-                jupiterDistanceToSun * cos(glm::radians(jupiterOrbitAngle)),
+                jupiterDistanceToSun * cos(glm::radians(oaJupiter)),
                 0.0f,
-                jupiterDistanceToSun * sin(glm::radians(jupiterOrbitAngle))
+                jupiterDistanceToSun * sin(glm::radians(oaJupiter))
         );
-        jupiterUniform.model = createModelMatrix(jupiterTranslationVector, jupiterScaleFactor, jupiterRotationAxis, rotationAngleJupiter);
+        jupiterUniform.model = createModelMatrix(jupiterTranslationVector, jupiterScaleFactor, jupiterRotationAxis, raJupiter);
         jupiterModel.modelMatrix = jupiterUniform.model;
 
         models.push_back(jupiterModel);
 
         glm::vec3 uranusTranslationVector(
-                uranusDistanceToSun * cos(glm::radians(uranusOrbitAngle)),
+                uranusDistanceToSun * cos(glm::radians(oaUranus)),
                 0.0f,
-                uranusDistanceToSun * sin(glm::radians(uranusOrbitAngle))
+                uranusDistanceToSun * sin(glm::radians(oaUranus))
         );
-        uranusUniform.model = createModelMatrix(uranusTranslationVector, uranusScaleFactor, uranusRotationAxis, rotationAngleUranus);
+        uranusUniform.model = createModelMatrix(uranusTranslationVector, uranusScaleFactor, uranusRotationAxis, raUranus);
         uranusModel.modelMatrix = uranusUniform.model;
 
         models.push_back(uranusModel);
 
         glm::vec3 nepTranslationVector(
-                neptuneDistanceToSun * cos(glm::radians(neptuneOrbitAngle)),
+                neptuneDistanceToSun * cos(glm::radians(oaNeptune)),
                 0.0f,
-                neptuneDistanceToSun * sin(glm::radians(neptuneOrbitAngle))
+                neptuneDistanceToSun * sin(glm::radians(oaNeptune))
         );
-        neptuneUniform.model = createModelMatrix(nepTranslationVector, neptuneScaleFactor, neptuneRotationAxis, rotationAngleNeptune);
+        neptuneUniform.model = createModelMatrix(nepTranslationVector, neptuneScaleFactor, neptuneRotationAxis, raNeptune);
         neptuneModel.modelMatrix = neptuneUniform.model;
 
         models.push_back(neptuneModel);

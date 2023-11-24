@@ -12,30 +12,30 @@
 #include "fragment.h"
 #include "noise.h"
 
-float rotationSpeedPlanets = 1.0f;  // Base speed of the planets
-float orbitSpeedPlanets = 1.0f;  // Base speed of the planets
+float rsPlanets = 1.0f;  // Base speed of the planets
+float osPlanets = 1.0f;  // Base speed of the planets
 
-float rotationAngleSun = 0.2f;
+float raSun = 0.2f;
 
-float earthOrbitAngle = 0.0f;
+float oaEarth = 0.0f;
 float earthDistanceToSun = 3.5f;
-float rotationAngleEarth = 0.0f;
+float raEarth = 0.0f;
 
-float marsOrbitAngle = 0.0f;
+float orMars = 0.0f;
 float marsDistanceToSun = 5.0f;
-float rotationAngleMars = 0.0f;
+float raMars = 0.0f;
 
-float jupiterOrbitAngle = 0.0f;
+float oaJupiter = 0.0f;
 float jupiterDistanceToSun = 6.5f;
-float rotationAngleJupiter = 0.0f;
+float raJupiter = 0.0f;
 
-float uranusOrbitAngle = 0.0f;
+float oaUranus = 0.0f;
 float uranusDistanceToSun = 8.0f;
-float rotationAngleUranus = 0.0f;
+float raUranus = 0.0f;
 
-float neptuneOrbitAngle = 0.0f;
+float oaNeptune = 0.0f;
 float neptuneDistanceToSun = 9.5f;
-float rotationAngleNeptune = 0.0f;
+float raNeptune = 0.0f;
 
 struct Face {
     std::array<int, 3> vertexIndices;
