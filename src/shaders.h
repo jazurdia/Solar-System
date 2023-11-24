@@ -144,51 +144,6 @@ Fragment fragmentShaderEarth5(Fragment& fragment) {
     return fragment;
 }
 
-Fragment fragmentShaderGasGiant(Fragment& fragment) {
-    Color color;
-
-    // Define los tonos de verde
-    glm::vec3 lightGreen = glm::vec3(0.68f, 1.0f, 0.18f); // Verde claro
-    glm::vec3 midGreen = glm::vec3(0.4f, 0.8f, 0.13f); // Verde medio
-    glm::vec3 darkGreen = glm::vec3(0.0f, 0.39f, 0.0f); // Verde oscuro
-
-    float x = fragment.originalPos.x;
-    float y = fragment.originalPos.y;
-    float z = fragment.originalPos.z;
-
-    // Crear una inclinación en las franjas
-    float diagonalFactor = 0.02f; // Controla el grado de inclinación
-    float inclinedV = acos((y + diagonalFactor * x) / sqrt(x*x + y*y + z*z)) / M_PI;
-
-    // Parámetros para controlar el ancho de la mezcla en las fronteras
-    float borderSize = 0.05f; // Tamaño de la frontera de mezcla
-    float lowerBorder = 0.33f - borderSize;
-    float upperBorder = 0.33f + borderSize;
-    float middleBorderLow = 0.66f - borderSize;
-    float middleBorderHigh = 0.66f + borderSize;
-
-    // Determinar el color basado en la coordenada V inclinada
-    glm::vec3 tmpColor;
-    if (inclinedV < lowerBorder) {
-        tmpColor = lightGreen;
-    } else if (inclinedV < upperBorder) {
-        tmpColor = mix(lightGreen, midGreen, glm::smoothstep(lowerBorder, upperBorder, inclinedV));
-    } else if (inclinedV < middleBorderLow) {
-        tmpColor = midGreen;
-    } else if (inclinedV < middleBorderHigh) {
-        tmpColor = mix(midGreen, darkGreen, glm::smoothstep(middleBorderLow, middleBorderHigh, inclinedV));
-    } else {
-        tmpColor = darkGreen;
-    }
-
-    color = Color(tmpColor.x, tmpColor.y, tmpColor.z);
-
-    // Aplicar la intensidad de iluminación
-    fragment.color = color * fragment.intensity;
-
-    return fragment;
-}
-
 Fragment fragmentShaderJupiter(Fragment& fragment) {
     Color color;
 
@@ -410,8 +365,8 @@ Fragment shipFragmentShaderMoving(Fragment& fragment) {
     Color color;
 
     // just paint all the ship with white for now
-    color = Color(1.0f, 0.5f, 0.5f);
-    fragment.color = color * fragment.intensity;
+    color = Color(2.0f, 0.5f, 0.5f);
+    fragment.color = color;
 
     return fragment;
 }

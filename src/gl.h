@@ -12,6 +12,30 @@
 #include "fragment.h"
 #include "noise.h"
 
+float rotationSpeedPlanets = 1.0f;  // Base speed of the planets
+float orbitSpeedPlanets = 1.0f;  // Base speed of the planets
+
+float rotationAngleSun = 0.2f;
+
+float earthOrbitAngle = 0.0f;
+float earthDistanceToSun = 3.5f;
+float rotationAngleEarth = 0.0f;
+
+float marsOrbitAngle = 0.0f;
+float marsDistanceToSun = 5.0f;
+float rotationAngleMars = 0.0f;
+
+float jupiterOrbitAngle = 0.0f;
+float jupiterDistanceToSun = 6.5f;
+float rotationAngleJupiter = 0.0f;
+
+float uranusOrbitAngle = 0.0f;
+float uranusDistanceToSun = 8.0f;
+float rotationAngleUranus = 0.0f;
+
+float neptuneOrbitAngle = 0.0f;
+float neptuneDistanceToSun = 9.5f;
+float rotationAngleNeptune = 0.0f;
 
 struct Face {
     std::array<int, 3> vertexIndices;
@@ -21,7 +45,7 @@ struct Face {
 
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
-const int SCREEN_WIDTH = 720;
+const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
 Color clearColor = {0, 0, 0, 255}; // Initially set to black
