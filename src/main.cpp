@@ -11,6 +11,8 @@
 // Constantes.
 std::vector<Model> models;
 std::string planet;
+bool shipMoving = false;
+
 
 bool init() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -149,10 +151,6 @@ std::vector<Model> c_update(std::vector<Model>& mToUpdate, Camera newCamera) {
     return mToUpdate;
 }
 
-//glm::vec3 shipTranslationVector(0.0f, 0.4f, 13.5f);
-//glm::vec3 shipRotationAxis(0.0f, 1.0f, 1.5f); // Rotate around the Y-axis every model
-//glm::vec3 shipScaleFactor(shipScale, shipScale, shipScale);  // Scale of the model
-
 Model createModel(std::vector<glm::vec3> vertices, Uniforms uniforms, Shader shader) {
     Model model;
     model.vertices = vertices;
@@ -230,11 +228,10 @@ int main(int argc, char** argv) {
     glm::vec3 neptuneScaleFactor(neptuneScale, neptuneScale, neptuneScale);  // Scale of the model
     Model neptuneModel = createModel(planetVBO, neptuneUniform, Shader::Neptune);
 
-    cout << "Starting loop" << endl;
+    cout << "Empieza el renderizado" << endl;
 
     bool running = true;
     bool orbiting = true;
-    bool shipNotMoving = true;
 
     while (running) {
         frameStart = SDL_GetTicks();
@@ -244,16 +241,28 @@ int main(int argc, char** argv) {
                 running = false;
             }
 
-            if (event.type == SDL_KEYUP) {
+            if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
-                    case SDLK_s:
-                    case SDLK_d:
                     case SDLK_w:
                     case SDLK_a:
-                        shipNotMoving = false;
+                    case SDLK_s:
+                    case SDLK_d:
+                        shipMoving = true;
                         break;
                 }
             }
+
+            if (event.type == SDL_KEYUP) {
+                switch (event.key.keysym.sym) {
+                    case SDLK_w:
+                    case SDLK_a:
+                    case SDLK_s:
+                    case SDLK_d:
+                        shipMoving = false;
+                        break;
+                }
+            }
+
 
             if (event.type == SDL_KEYDOWN) {
                 float increment = 0.5f;
@@ -263,19 +272,15 @@ int main(int argc, char** argv) {
                         break;
                     case SDLK_w:
                         camera = zoomIn(camera);
-                        shipNotMoving = false;
                         break;
                     case SDLK_s:
                         camera = zoomOut(camera);
-                        shipNotMoving = true;
                         break;
                     case SDLK_a:
                         camera = moveLeft(camera);
-                        shipNotMoving = false;
                         break;
                     case SDLK_d:
                         camera = moveRight(camera);
-                        shipNotMoving = false;
                         break;
                     case SDLK_LEFT:
                         rotationSpeedPlanets -= increment;
@@ -378,6 +383,13 @@ int main(int argc, char** argv) {
 
         models.push_back(shipModel);
 
+        if (shipMoving) {
+            shipModel.shader = Shader::ShipMoving;
+        } else {
+            shipModel.shader = Shader::Ship;
+        }
+
+
         render();
 
         models.clear();
@@ -393,7 +405,7 @@ int main(int argc, char** argv) {
         // Calculate frames per second and update window title
         if (frameTime > 0) {
             std::ostringstream titleStream;
-            titleStream << planet + " FPS: " << 1000.0 / frameTime;  // Milliseconds to seconds
+            titleStream << "Proyecto 1 | Alejandro Azurdia 21242 \t" + planet + " FPS: " << 1000.0 / frameTime;  // Milliseconds to seconds
             SDL_SetWindowTitle(window, titleStream.str().c_str());
         }
     }

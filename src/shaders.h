@@ -366,7 +366,7 @@ Fragment shipFragmentShaderMoving(Fragment& fragment) {
 
     // just paint all the ship with white for now
     color = Color(2.0f, 0.5f, 0.5f);
-    fragment.color = color;
+    fragment.color = color * fragment.intensity;
 
     return fragment;
 }
