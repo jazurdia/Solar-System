@@ -6,7 +6,7 @@ Este proyecto es un sistema de visualización 3D para representar objetos espaci
 Se realizó este proyecto para la clase de Gráficas por Computador de Universidad del Valle de Guatemala, como Proyecto1.
 
 ### Demostracion
-![Demostracion](https://www.youtube.com/watch?v=0xe_JmHAM6A)
+[![Nombre del Video](https://img.youtube.com/vi/0xe_JmHAM6A/maxresdefault.jpg)](https://www.youtube.com/watch?v=0xe_JmHAM6A)
 
 Al iniciar el programa, los planetas se encuentran alienados a la derecha de la estrella. Los planetas (5) orbitan al rededor de la estrella y tienen cada uno velocidades diferentes. La nave espacial se encuentra en el centro de la estrella y se puede mover con las teclas WASD.
 
